@@ -11,7 +11,7 @@ do
    INSTANCE_ID=$( aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t2.micro 
     --security-group-ids sg-0df304cc4c6711e85 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=test}]' 
     --query 'Reservations[*].Instances[0].InstanceId' --output text)
-    if [ $instace != "frontend"]
+    if [ $instace != "frontend" ]
     then
         IP=(aws ec2 describe-instances --instance-ids i-0abcdef1234567890 
     --query 'Reservations[*].Instances[*].privateIpAddress' --output text)
