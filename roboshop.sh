@@ -12,11 +12,9 @@ do
     --query 'Reservations[*].Instances[0].InstanceId' --output text)
     if [ $instance != "frontend" ]
     then
-        IP=$(aws ec2 describe-instances --instance-ids i-0abcdef1234567890 
-    --query 'Reservations[0].Instances[0].privateIpAddress' --output text)
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].privateIpAddress' --output text)
 else
-    IP=$(aws ec2 describe-instances --instance-ids i-0abcdef1234567890 
-    --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+    IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
 fi
     echo "$instance IP address: $IP"
 done
