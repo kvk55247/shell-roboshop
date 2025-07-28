@@ -25,9 +25,7 @@ aws route53 change-resource-record-sets \
   --change-batch '
   
   
-aws route53 change-resource-record-sets \
-  --hosted-zone-id $zoneid \
-  --change-batch '
+
   {
     "Comment": "Creating or updating a record set for cognito endpoint"
     ,"Changes": [{
