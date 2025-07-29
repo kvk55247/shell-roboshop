@@ -10,23 +10,23 @@ DOMAIN_NAME="daws-84s.info"
 
 for instance in ${INSTANCES[@]}
 do
+   INSTACE_ID=$(aws ec2 run-instances \
+  --image-id ami-09c813fb71547fc4f \
+  --instance-type t3.micro \
+  --security-group-ids sg-0df304cc4c6711e85 \
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]'--query 'Instances[0].InstanceId[*].' \
+  --output text)
 
-aws route53 change-resource-record-sets \
-  --hosted-zone-id $ZONE_ID \
-  --change-batch '
-  {
-    "Comment": "Creating or updating a record set for cognito endpoint"
-    ,"Changes": [{
-      "Action"              : "UPSERT"
-      ,"ResourceRecordSet"  : {
-        "Name"              : "'$instance'.'$DOMAIN_NAME"
-        ,"Type"             : "A"
-        ,"TTL"              : 1
-        ,"ResourceRecords"  : [{
-            "Value"         : "$IP"
-        }]
-      }
-    }]
-  }'
+  if [ $instance!= "frontend"]
+  then
+      IP=$(aws ec2 describe-instances \
+  --instance-ids $INSTANCE_ID \
+  --query 'Reservations[*].Instances[*].PrivateIpAddress' \
+  --output text)
+  else 
+    IP=$(aws ec2 describe-instances \
+  --instance-ids $INSTANCE_ID \
+  --query 'Reservations[*].Instances[*].PublicIpAddress' \
+  --output text)
 
-done
+
