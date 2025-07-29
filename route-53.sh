@@ -30,7 +30,7 @@ do
   --query 'Reservations[0].Instances[0].PublicIpAddress' \
   --output text)
   fi
-  echo "$instance IP_address: $ip"
+  echo "$instance IP_address: $IP"
 done
 
 
