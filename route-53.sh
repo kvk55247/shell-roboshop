@@ -8,8 +8,9 @@ INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipp
 ZONE_ID="Z02592383JVQTDY6U9ADB"
 DOMAIN_NAME="daws-84s.info"
 
-
+for instance in ${INSTANCES[@]}
 do
+
 aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONE_ID \
   --change-batch '
@@ -27,4 +28,5 @@ aws route53 change-resource-record-sets \
       }
     }]
   }'
+
 done
