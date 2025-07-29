@@ -14,10 +14,10 @@ do
   --image-id ami-09c813fb71547fc4f \
   --instance-type t3.micro \
   --security-group-ids sg-0df304cc4c6711e85 \
-  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]' --query 'Instances[0].InstanceId[*].' \
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]' --query 'Instances[0].InstanceId[*]' \
   --output text)
 
-  if [ $instance!= "frontend" ]
+  if [ $instance != "frontend" ]
   then
       IP=$(aws ec2 describe-instances \
   --instance-ids $INSTANCE_ID \
