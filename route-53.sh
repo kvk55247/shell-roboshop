@@ -30,8 +30,7 @@ do
   --query 'Reservations[0].Instances[0].PublicIpAddress' \
   --output text)
   fi
-  echo "Public IP Address of instance $INSTANCE_ID: $PUBLIC_IP"
-  echo "Private IP Address of instance $INSTANCE_ID: $PRIVATE_IP"
+ echo "$instance IP address: $IP"
 done
 
 
