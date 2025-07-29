@@ -28,6 +28,8 @@ do
   --instance-ids $INSTANCE_ID \
   --query 'Reservations[*].Instances[*].PublicIpAddress' \
   --output text)
+  fi
+  echo " $instance IP address: $IP"
 done
 
 
