@@ -31,4 +31,5 @@ do
   --output text)
   fi
  echo "$instance IP address: $IP"
+ 
 done
