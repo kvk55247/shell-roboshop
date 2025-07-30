@@ -12,7 +12,7 @@ for instance in ${INSTANCES[@]}
 do
 
 aws route53 change-resource-record-sets \
-  --hosted-zone-id $zoneid \
+  --hosted-zone-id $ZONE_ID \
   --change-batch '
   {
     "Comment": "Creating or updating a record set for cognito endpoint"
