@@ -28,3 +28,12 @@ cat > change-batch.json << EOF
     }
   ]
 }
+EOF
+
+# Call AWS CLI to apply the change
+aws route53 change-resource-record-sets \
+    --hosted-zone-id "$HOSTED_ZONE_ID" \
+    --change-batch file://change-batch.json
+
+# Clean up
+rm change-batch.json
