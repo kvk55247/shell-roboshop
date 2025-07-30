@@ -19,7 +19,7 @@ aws route53 change-resource-record-sets \
     ,"Changes": [{
       "Action"              : "UPSERT"
       ,"ResourceRecordSet"  : {
-        "Name"              : "'$instances'.'$DOMAIN_NAME'"
+        "Name"              : "'$INSTANCES'.'$DOMAIN_NAME'"
         ,"Type"             : "A"
         ,"TTL"              : 1
         ,"ResourceRecords"  : [{
