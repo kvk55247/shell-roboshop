@@ -1,11 +1,11 @@
 #!/bin/bash
 
 
-AMI_ID=ami-09c813fb71547fc4f
-SG_ID=sg-0df304cc4c6711e85
+AMI_ID="ami-09c813fb71547fc4f"
+SG_ID="sg-0df304cc4c6711e85"
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "frontend")
-ZONE_ID=Z02592383JVQTDY6U9ADB
-DOMAIN_NAME=daws84s.info
+ZONE_ID="Z02592383JVQTDY6U9ADB"
+DOMAIN_NAME="daws84s.info"
 
 
 for instance in ${INSTANCES[@]}
@@ -19,7 +19,7 @@ aws route53 change-resource-record-sets \
     ,"Changes": [{
       "Action"              : "UPSERT"
       ,"ResourceRecordSet"  : {
-        "Name"              : "'$INSTANCES'.'$DOMAIN_NAME'"
+        "Name"              : "'$INSTANCE'.'$DOMAIN_NAME'"
         ,"Type"             : "A"
         ,"TTL"              : 1
         ,"ResourceRecords"  : [{
