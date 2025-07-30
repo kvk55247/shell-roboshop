@@ -16,7 +16,7 @@ cat > change-batch.json << EOF
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "$DOMAIN_NAME",
+        "Name": "'$instance'.'$DOMAIN_NAME",
         "Type": "A",
         "TTL": 1,
         "ResourceRecords": [
