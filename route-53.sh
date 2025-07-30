@@ -4,7 +4,7 @@
 
 AMI_ID="ami-09c813fb71547fc4f"
 SG_ID="sg-0df304cc4c6711e85"
-INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "frontend")
+INSTANCES=("mongodb" "catalogue" "frontend")
 ZONE_ID="Z02592383JVQTDY6U9ADB"
 DOMAIN_NAME="daws84s.info"
 
@@ -31,5 +31,5 @@ do
   --output text)
   fi
  echo "$instance IP address: $IP"
- 
+
 done
