@@ -1,31 +1,45 @@
 #!/bin/bash
 
+#!/bin/bash
 
-AMI_ID="ami-09c813fb71547fc4f"
-SG_ID="sg-0df304cc4c6711e85"
-INSTANCES=("mongodb" "catalogue" "frontend")
-ZONE_ID="Z02592383JVQTDY6U9ADB"
-DOMAIN_NAME=" daws84s.info "
+# Replace with your hosted zone ID
+HOSTED_ZONE_ID="Z02592383JVQTDY6U9ADB"
 
-
-for instance in ${INSTANCES[@]}
-do
-
-  aws route53 change-resource-record-sets \
-  --hosted-zone-id $ZONE_ID \
-  --change-batch '
-  {
-    "Comment": "Creating or updating a record set for cognito endpoint"
-    ,"Changes": [{
-      "Action"              : "UPSERT"
-      ,"ResourceRecordSet"  : {
-        "Name"              : "'$instance'.'$DOMAIN_NAME'"
-        ,"Type"             : "A"
-        ,"TTL"              : 1
-        ,"ResourceRecords"  : [{
-            "Value"         : "'$IP'"
-        }]
+# Create temp JSON file with change batch
+cat > change-batch.json <<EOF
+{
+  "Comment": "Creating 3 A records",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "daws84s.info",
+        "Type": "A",
+        "TTL": 1,
+        "ResourceRecords": [{ "Value": "$IP" }]
       }
-    }]
-  }'
-  done
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "daws84s.info",
+        "Type": "A",
+        "TTL": 1,
+        "ResourceRecords": [{ "Value": "$IP" }]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "daws84s.info",
+        "Type": "A",
+        "TTL": 1,
+        "ResourceRecords": [{ "$IP" }]
+      }
+    }
+  ]
+}
+EOF
+
+# Submit the change batch to Route 53
+aws route53 change-resource-record-sets --hosted-zone-id "$HOSTED_ZONE_ID" --change-batch file://change-batch.json
