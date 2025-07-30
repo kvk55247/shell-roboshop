@@ -3,7 +3,7 @@
 
 # Input variables
 HOSTED_ZONE_ID="Z02592383JVQTDY6U9ADB"  # Replace with your actual Hosted Zone ID
-DOMAIN_NAME_NAME="daws84s.info"
+DOMAIN_NAME="daws84s.info"
 RECORD_TYPE="A"
 RECORD_TTL=1
 RECORD_VALUE="$IP"  # Replace with your IP or record value
@@ -28,12 +28,3 @@ cat > change-batch.json << EOF
     }
   ]
 }
-EOF
-
-# Call AWS CLI to apply the change
-aws route53 change-resource-record-sets \
-    --hosted-zone-id "$HOSTED_ZONE_ID" \
-    --change-batch file://change-batch.json
-
-# Clean up
-rm change-batch.json
