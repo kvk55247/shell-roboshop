@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#!/bin/bash
+
 zoneid=Z02592383JVQTDY6U9ADB
 recordname=$instance
 recordvalue=$IP
