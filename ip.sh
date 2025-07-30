@@ -1,45 +1,39 @@
 #!/bin/bash
-
 #!/bin/bash
 
-# Replace with your hosted zone ID
-HOSTED_ZONE_ID="Z02592383JVQTDY6U9ADB"
+# Input variables
+HOSTED_ZONE_ID="Z02592383JVQTDY6U9ADB"  # Replace with your actual Hosted Zone ID
+DOMAIN_NAME_NAME="daws84s.info"
+RECORD_TYPE="A"
+RECORD_TTL=1
+RECORD_VALUE="$IP"  # Replace with your IP or record value
 
-# Create temp JSON file with change batch
-cat > change-batch.json <<EOF
+# Create the JSON file for the change batch
+cat > change-batch.json << EOF
 {
-  "Comment": "Creating 3 A records",
+  "Comment": "UPSERT record via shell script",
   "Changes": [
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "daws84s.info",
+        "Name": "$DOMAIN_NAME",
         "Type": "A",
         "TTL": 1,
-        "ResourceRecords": [{ "Value": "$IP" }]
-      }
-    },
-    {
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "daws84s.info",
-        "Type": "A",
-        "TTL": 1,
-        "ResourceRecords": [{ "Value": "$IP" }]
-      }
-    },
-    {
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "daws84s.info",
-        "Type": "A",
-        "TTL": 1,
-        "ResourceRecords": [{ "$IP" }]
+        "ResourceRecords": [
+          {
+            "Value": "$IP"
+          }
+        ]
       }
     }
   ]
 }
 EOF
 
-# Submit the change batch to Route 53
-aws route53 change-resource-record-sets --hosted-zone-id "$HOSTED_ZONE_ID" --change-batch file://change-batch.json
+# Call AWS CLI to apply the change
+aws route53 change-resource-record-sets \
+    --hosted-zone-id "$HOSTED_ZONE_ID" \
+    --change-batch file://change-batch.json
+
+# Clean up
+rm change-batch.json
