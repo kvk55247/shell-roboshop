@@ -16,8 +16,6 @@ do
   --security-group-ids sg-0df304cc4c6711e85 \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]'   --query 'Reservations[*].Instances[*].InstanceId' \
   --output text)
- 
-
   if [ $instance != "frontend" ]
   then
       IP=$(aws ec2 describe-instances \
