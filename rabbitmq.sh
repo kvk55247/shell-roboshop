@@ -52,6 +52,8 @@ rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 
 
 
+
+
 END_TIME=$(date +%s) &>>$LOG_FILE
 TOTAL_TIME=$(( $END_TIME - $START_TIME)) &>>$LOG_FILE
 
