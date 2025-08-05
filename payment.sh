@@ -51,19 +51,20 @@ VALIDATE $? "creating directory"
 curl -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip &>>$LOG_FILE
 VALIDATE $? "downloading payment"
 
-rm -rf /app/*
+rm -rf /app/* &>>$LOG_FILE
 cd /app 
-unzip /tmp/payment.zip
+unzip /tmp/payment.zip &>>$LOG_FILE
 VALIDATE $? "unzipping payment"
 
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "installing dependencies"
 
-cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
+cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
 VALIDATE $? "copying payment.service"
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? "daemon-reload"
-systemctl enable payment 
-systemctl start payment
+systemctl enable payment &>>$LOG_FILE
+VALIDATE $? "enabling payment"
+systemctl start payment &>>$LOG_FILE
 VALIDATE $? "starting payment"
