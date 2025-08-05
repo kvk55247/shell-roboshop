@@ -68,3 +68,11 @@ systemctl enable payment &>>$LOG_FILE
 VALIDATE $? "enabling payment"
 systemctl start payment &>>$LOG_FILE
 VALIDATE $? "starting payment"
+
+
+
+END_TIME=$(date +%s) &>>$LOG_FILE
+TOTAL_TIME=$(( $END_TIME - $START_TIME)) &>>$LOG_FILE
+
+echo -e "script execution completed successfully, $Y time taken: $TOTAL_TIME seconds $N" | tee -a $LOG_FILE
+
