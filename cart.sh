@@ -49,13 +49,13 @@ then
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
 VALIDATE $? "Creating roboshop system user"
 else
-echo -e "systemuser roboshop already created..... $Y SKIPPING $N"
+echo -e "system user roboshop already created..... $Y SKIPPING $N"
 fi
 
 mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "creating directory"
 
-curl -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/-v3.zip &>>$LOG_FILE
+curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
 VALIDATE $? "downloading cart"
 
 rm -rf /app/*
