@@ -60,7 +60,7 @@ VALIDATE $? "downloading cart"
 
 rm -rf /app/*
 cd /app 
-unzip /tmp/cart.zip
+unzip /tmp/cart.zip &>>$LOG_FILE
 VALIDATE $? "unzipping cart"
 
 npm install &>>$LOG_FILE
