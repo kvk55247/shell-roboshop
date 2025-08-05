@@ -41,8 +41,8 @@ VALIDATE $? "enabling redis:7"
 dnf install redis -y 
 VALIDATE $? "installing redis"
 
- sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf 
-VALIDATE $? "Editing redis conf file for rempote connections"
+ sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
+VALIDATE $? "Editing redis.conf file for rempote connections"
 
 systemctl enable redis 
 VALIDATE $? "enabling redis"
