@@ -77,8 +77,9 @@ VALIDATE $? "installing mongoDB client"
 
 STATUS=$(mongosh --host mongodb.daws84s.info --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 if [ $STATUS -lt 0 ]
-mongosh --host mongodb.daws84s.info </app/db/master-data.js &>>$LOG_FILE
-VALIDATE $? "Loading data into mongoDB"
+then
+    mongosh --host mongodb.daws84s.info </app/db/master-data.js &>>$LOG_FILE
+    VALIDATE $? "Loading data into mongoDB"
 else
- echo -e "data is already loaded ..... $Y SKIPPING $N"
+    echo -e "Data is already loaded ..... $Y SKIPPING $N"
  fi
